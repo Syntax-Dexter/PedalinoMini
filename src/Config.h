@@ -965,7 +965,7 @@ void load_factory_default()
   act->next         = nullptr;
   create_banks();
 #else
-#if defined(ARDUINO_LILYGO_T_DISPLAY) || defined(ARDUINO_LILYGO_T_DISPLAY_S3)
+#if defined(ARDUINO_BPI_LEAF_S3) || defined(ARDUINO_LILYGO_T_DISPLAY) || defined(ARDUINO_LILYGO_T_DISPLAY_S3)
   for (byte p = 0; p < PEDALS; p++)
     pedals[p] = {PED_DISABLE,    // autosensing
                  PED_MOMENTARY1, // mode

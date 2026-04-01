@@ -1,6 +1,13 @@
 [![](./images/PedalinoMini486.png)](https://github.com/alf45tar/PedalinoMini-6)
 
 
+# My display customization
+
+Default the BPI leaf S3 is coded to a SSD1306 2 color display.
+I needed it changed to a 2" color ST7789 SPI display. (no BL pin by the way)
+Also changed battery pin GPIO14 to GPIO1. 
+Reason is GPIO14 is an ADC_UNIT_2 pin and didn't work when Wifi is on. It's an ESP32-S3 bug.
+
 # PedalinoMini™
 
 Wireless MIDI foot controller for guitarists and more.

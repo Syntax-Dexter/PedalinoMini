@@ -54,10 +54,10 @@ __________           .___      .__  .__                 _____  .__       .__    
 #include "UdpMidiIn.h"
 #include "BLEMidiIn.h"
 #include "Config.h"
-#if defined(ARDUINO_LILYGO_T_DISPLAY) || defined(ARDUINO_LILYGO_T_DISPLAY_S3)
+#if defined(ARDUINO_BPI_LEAF_S3) || defined(ARDUINO_LILYGO_T_DISPLAY) || defined(ARDUINO_LILYGO_T_DISPLAY_S3)
 #include "DisplayTFT.h"
-#else
-#include "DisplayOLED.h"
+// #else
+// #include "DisplayOLED.h"
 #endif
 #include "Controller.h"
 #include "OTAHTTPS.h"
@@ -219,8 +219,8 @@ void setup()
   // GPIO34
   esp_adc_cal_value_t           val_type = esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_DB_11, ADC_WIDTH_BIT_12, 1100, &adc_chars);
 #elif defined ARDUINO_BPI_LEAF_S3
-  // GPIO14
-  esp_adc_cal_value_t           val_type = esp_adc_cal_characterize(ADC_UNIT_2, ADC_ATTEN_DB_11, ADC_WIDTH_BIT_12, 1100, &adc_chars);
+  // GPIO1 (not GPIO14 anymore)
+  esp_adc_cal_value_t           val_type = esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_DB_12, ADC_WIDTH_BIT_12, 1100, &adc_chars);
 #elif defined ARDUINO_LILYGO_T_DISPLAY_S3
   // GPIO04
   esp_adc_cal_value_t           val_type = esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_DB_11, ADC_WIDTH_BIT_12, 1100, &adc_chars);
@@ -639,6 +639,12 @@ void loop0(void * pvParameters)
       }
     }
 #endif // WIFI
+
+    // Keep runtime activity minimal while OTA is writing flash.
+    // Display refresh and periodic battery sampling can interfere with OTA stability.
+    if (firmwareUpdate == PED_UPDATE_HTTP || firmwareUpdate == PED_UPDATE_ARDUINO_OTA) {
+      continue;
+    }
 
     wifi_and_battery_level();
 

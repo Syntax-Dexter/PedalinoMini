@@ -9,10 +9,14 @@ __________           .___      .__  .__                 _____  .__       .__    
                                                                        https://github.com/alf45tar/PedalinoMini
  */
 
-#if (defined ARDUINO_LILYGO_T_DISPLAY) || (defined ARDUINO_LILYGO_T_DISPLAY_S3)
+#if (defined ARDUINO_BPI_LEAF_S3) || (defined ARDUINO_LILYGO_T_DISPLAY) || (defined ARDUINO_LILYGO_T_DISPLAY_S3)
 #include <TFT_eSPI.h>
 #include <SPI.h>
 #include <Wire.h>
+
+#ifndef TFT_BACKLIGHT_ON
+#define TFT_BACKLIGHT_ON HIGH
+#endif
 
 TFT_eSPI display = TFT_eSPI(TFT_WIDTH, TFT_HEIGHT);
 #define DISPLAY_WIDTH   TFT_HEIGHT                                                     // T-Display = 240; T-Display-S3 = 320
@@ -1462,7 +1466,9 @@ void display_ui_update_enable()
 
 void display_off()
 {
-  digitalWrite(TFT_BL, !TFT_BACKLIGHT_ON);
+  if (TFT_BL >= 0) {
+    digitalWrite(TFT_BL, !TFT_BACKLIGHT_ON);
+  }
 
   display.writecommand(TFT_DISPOFF);
   display.writecommand(TFT_SLPIN);
@@ -1470,7 +1476,9 @@ void display_off()
 
 void display_on()
 {
-  digitalWrite(TFT_BL, TFT_BACKLIGHT_ON);
+  if (TFT_BL >= 0) {
+    digitalWrite(TFT_BL, TFT_BACKLIGHT_ON);
+  }
 
   display.writecommand(TFT_DISPON);
   display.writecommand(TFT_SLPOUT);

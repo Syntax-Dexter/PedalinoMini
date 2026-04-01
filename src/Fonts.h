@@ -73,7 +73,7 @@ const uint8_t DSEG7_Classic_Bold_50[] PROGMEM = {
 };
 
 
-#if defined(ARDUINO_LILYGO_T_DISPLAY) || defined(ARDUINO_LILYGO_T_DISPLAY_S3)
+#if defined(ARDUINO_BPI_LEAF_S3) || defined(ARDUINO_LILYGO_T_DISPLAY) || defined(ARDUINO_LILYGO_T_DISPLAY_S3)
 // Created by http://oleddisplay.squix.ch/ Consider a donation
 // In case of problems make sure that you are using the font file with the correct version!
 // Edited with https://tchapi.github.io/Adafruit-GFX-Font-Customiser/

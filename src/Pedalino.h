@@ -30,10 +30,10 @@ __________           .___      .__  .__                 _____  .__       .__    
 #define ADC_BOARDS        4   //
 #define ADC_INPUTS        4   // ADS1115 number of analog inputs
 #define ADC_CHANNELS      (ADC_BOARDS * ADC_INPUTS)
-#define LEDS             10   // number of WS2812B leds (254 max)
+#define LEDS             16   // number of WS2812B leds (254 max)
 #define LED_RGB_ORDER   RGB   // do not change it, RGB order is managed by program because FastLED library does not support changing RGB order at runtime
 #define SLOTS_ROWS        2
-#define SLOTS_COLS        3
+#define SLOTS_COLS        4
 #define SLOTS             SLOTS_ROWS * SLOTS_COLS
 
 
@@ -84,6 +84,9 @@ const byte pinA[] = {GPIO_NUM_36, GPIO_NUM_39, GPIO_NUM_34, GPIO_NUM_35, GPIO_NU
 #define DIN_MIDI_OUT_PIN      GPIO_NUM_4
 #define BATTERY_PIN           GPIO_NUM_36   // GPIO_NUM_32 to GPIO_NUM_39 only
 #define FASTLEDS_DATA_PIN     GPIO_NUM_5
+
+
+
 #elif defined ARDUINO_BPI_LEAF_S3           // https://wiki.banana-pi.org/BPI-Leaf-S3
 #undef  PEDALS
 #define PEDALS                9
@@ -98,12 +101,15 @@ const byte pinA[] = {GPIO_NUM_4,  GPIO_NUM_5,  GPIO_NUM_6,  GPIO_NUM_7,  GPIO_NU
 #define FACTORY_DEFAULT_PIN   GPIO_NUM_0    // Button BOOT
 #define DIN_MIDI_IN_PIN       GPIO_NUM_21
 #define DIN_MIDI_OUT_PIN      GPIO_NUM_47
-#define BATTERY_PIN           GPIO_NUM_14   // Pin connected to +BATT
-#define FASTLEDS_DATA_PIN     GPIO_NUM_48
+#define BATTERY_PIN           GPIO_NUM_1    // now on ADC_1 pin instead of default pin 14. Voltage divider R1=100k and R2=100k 
+#define FASTLEDS_DATA_PIN     GPIO_NUM_36
 #undef  SDA
 #undef  SCL
-#define SDA                   GPIO_NUM_15
-#define SCL                   GPIO_NUM_16
+#define SDA                   GPIO_NUM_15   // MOSI pin oled
+#define SCL                   GPIO_NUM_16   // SCLK pin oled
+
+
+
 #elif defined ARDUINO_LILYGO_T_DISPLAY_S3   // https://github.com/Xinyuan-LilyGO/T-Display-S3
 #undef  PEDALS
 #define PEDALS                8
